@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Bản Đồ Tương Tác Phú Hòa</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; margin: 0; background-color: #f4f4f9; display: flex; flex-direction: column; align-items: center; }
+        .header { background: #1a73e8; color: white; width: 100%; text-align: center; padding: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        
+        .controls { margin: 20px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; max-width: 900px; }
+        button { padding: 12px 20px; cursor: pointer; border: none; border-radius: 25px; background: white; color: #1a73e8; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: 0.3s; }
+        button:hover { background: #e8f0fe; transform: translateY(-2px); }
+        button.active { background: #1a73e8; color: white; }
+
+        .map-container { position: relative; width: 90%; max-width: 1000px; background: white; padding: 10px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); overflow: hidden; }
+        .map-layer { width: 100%; height: auto; display: none; border-radius: 5px; }
+        .map-layer.active { display: block; animation: fadeIn 0.5s; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .footer { margin: 20px; padding: 20px; background: #fff; border-left: 5px solid #1a73e8; max-width: 900px; border-radius: 5px; }
+        .legend-info { color: #555; line-height: 1.6; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>BẢN ĐỒ TƯƠNG TÁC NGẬP LỤT HUYỆN PHÚ HÒA</h1>
+    <p>Dành cho học sinh trường THPT Trần Suyền</p>
+</div>
+
+<div class="controls">
+    <button onclick="changeLayer('giao-thong', this)" class="active">Mạng lưới Giao thông</button>
+    <button onclick="changeLayer('dia-hinh', this)">Độ cao Địa hình</button>
+    <button onclick="changeLayer('ngap-1', this)">Báo động 1 (Thấp)</button>
+    <button onclick="changeLayer('ngap-2', this)">Báo động 2 (Trung bình)</button>
+    <button onclick="changeLayer('ngap-3', this)">Báo động 3 (Nguy hiểm)</button>
+</div>
+
+<div class="map-container">
+    <img src="GTHONG..png" id="giao-thong" class="map-layer active">
+    <img src="DEM (1).png" id="dia-hinh" class="map-layer">
+    <img src="_DUNG.png" id="ngap-1" class="map-layer">
+    <img src="22D..png" id="ngap-2" class="map-layer">
+    <img src="CAP3 (1).png" id="ngap-3" class="map-layer">
+</div>
+
+<div class="footer">
+    <h3>📖 Hướng dẫn tương tác</h3>
+    <div class="legend-info">
+        Học sinh hãy chọn từng cấp độ báo động để quan sát diện tích vùng ngập (màu xanh lá/xanh dương) lan rộng. 
+        Hãy chú ý các tuyến đường <b>Quốc lộ 25</b> và <b>Cao tốc 01</b> để xem khi nào chúng bị chia cắt.
+    </div>
+</div>
+
+<script>
+    function changeLayer(id, btn) {
+        // Ẩn tất cả ảnh
+        document.querySelectorAll('.map-layer').forEach(img => img.classList.remove('active'));
+        // Hiện ảnh được chọn
+        document.getElementById(id).classList.add('active');
+        
+        // Đổi trạng thái nút bấm
+        document.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+</script>
+
+</body>
+</html>
